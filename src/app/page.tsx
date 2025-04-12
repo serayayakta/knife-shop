@@ -1,3 +1,4 @@
+import MainLayout from "@/components/layout/MainLayout";
 import ProductList from "@/components/shop/ProductList";
 
 const dummyProducts = [
@@ -11,10 +12,8 @@ const dummyProducts = [
 
 export default function Home() {
   return (
-    <main className="p-4">
-      <div className="max-w-7xl mx-auto">
-        <ProductList products={dummyProducts} />
-      </div>
-    </main>
+    <MainLayout>
+      <ProductList products={dummyProducts} />
+    </MainLayout>
   );
 }
