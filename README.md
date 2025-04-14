@@ -34,3 +34,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## 🪵 Kesik Bıçakçılık Color Guide
+
+| Role         | Tailwind Class | Example         | Usage                                  |
+|--------------|----------------|------------------|----------------------------------------|
+| Background   | `bg-gray-50`   | Pale ash         | Page background, neutral blocks        |
+| Surface      | `bg-white`     | White surface    | Drawer/card base                       |
+| Accent       | `bg-orange-700`| Rust brown       | Buttons, highlights                    |
+| Text (main)  | `text-gray-900`| Charcoal black   | Primary text                           |
+| Text (muted) | `text-gray-500`| Muted gray       | Subtext, prices                        |
+| Divider      | `border-gray-300` | Soft border   | Underlines, dividers                   |
+| Cart Total   | `text-gray-800 font-semibold` | Dark total text | Total section                          |
+

@@ -2,21 +2,21 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}"
   ],
   theme: {
     extend: {
       colors: {
-        primary: "#3B3B3B",     // Iron Gray
-        accent: "#B45309",      // Rust Brown
-        neutral: "#F5F1EB",     // Ash Beige
-        textBase: "#1C1C1C",    // Charcoal Black
-        textMuted: "#6B625A",   // Oak Gray
-      },
-    },
+        brand: {
+          DEFAULT: "#92400e",     // burnt orange
+          light: "#fcd5b5",       // pale amber
+          dark: "#4b2e14"         // dark oak
+        }
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 };
 
 export default config;
