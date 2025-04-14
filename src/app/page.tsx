@@ -1,29 +1,17 @@
+"use client";
+
 import MainLayout from "@/components/layout/MainLayout";
 import ProductList from "@/components/shop/ProductList";
-
-const dummyProducts = [
-  {
-    id: "knife-1",
-    name: "Tactical Blade",
-    price: 89.99,
-    discountedPrice: 69.99,
-  },
-  { id: "knife-2", name: "Chef Knife", price: 59.99 },
-  {
-    id: "knife-3",
-    name: "Outdoor Utility",
-    price: 74.99,
-    discountedPrice: 49.99,
-  },
-  { id: "knife-4", name: "Compact Folder", price: 49.99 },
-  { id: "knife-5", name: "Hunting Edge", price: 94.99, discountedPrice: 79.99 },
-  { id: "knife-6", name: "Utility King", price: 39.99 },
-];
+import { useKnives } from "@/hooks/useKnives";
 
 export default function Home() {
+  const { data: knives, isLoading, isError } = useKnives();
+
   return (
     <MainLayout>
-      <ProductList products={dummyProducts} />
+      {isLoading && <p>Loading products...</p>}
+      {isError && <p>Failed to load products. Please try again.</p>}
+      {knives && <ProductList products={knives} />}
     </MainLayout>
   );
 }

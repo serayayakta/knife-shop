@@ -16,8 +16,8 @@ export default function ProductCard({
   name,
   price,
   discountedPrice,
-  imageUrl = "/images/knife.jpg",
-}: ProductCardProps) {
+}: // imageUrl = "/images/knife.jpg",
+ProductCardProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
@@ -34,7 +34,7 @@ export default function ProductCard({
       {/* 📸 Product Image */}
       <div className="relative aspect-[3/2] w-full">
         <Image
-          src={imageUrl}
+          src={"/images/knife.jpg"}
           alt={name}
           fill
           className="object-cover"
