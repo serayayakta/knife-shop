@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartProvider";
 type ProductCardProps = {
   id: string;
   name: string;
-  price: number;
+  originalPrice: number;
   discountedPrice?: number;
   imageUrl?: string;
 };
@@ -14,17 +14,17 @@ type ProductCardProps = {
 export default function ProductCard({
   id,
   name,
-  price,
+  originalPrice,
   discountedPrice,
-}: // imageUrl = "/images/knife.jpg",
-ProductCardProps) {
+}: ProductCardProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
     addItem({
       id,
       name,
-      price: discountedPrice ?? price,
+      originalPrice,
+      discountedPrice,
       quantity: 1,
     });
   };
@@ -53,13 +53,17 @@ ProductCardProps) {
         <div className="text-sm">
           {discountedPrice ? (
             <>
-              <span className="line-through text-gray-400 mr-2">${price}</span>
+              <span className="line-through text-gray-400 mr-2">
+                ${originalPrice}
+              </span>
               <span className="text-red-600 font-semibold">
                 ${discountedPrice}
               </span>
             </>
           ) : (
-            <span className="text-gray-800 font-semibold">${price}</span>
+            <span className="text-gray-800 font-semibold">
+              ${originalPrice}
+            </span>
           )}
         </div>
 
