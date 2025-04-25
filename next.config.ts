@@ -1,13 +1,21 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   async rewrites() {
     return [
       {
-        source: "/api/knives", // ← your local endpoint
+        source: "/api/knives",
         destination:
-          "https://blade-commerce.onrender.com/api/knives/getAllKnives", // ← remote API
+          "https://blade-commerce.onrender.com/api/knives/getAllKnives",
+      },
+      {
+        source: "/api/knives/search",
+        destination: "https://blade-commerce.onrender.com/api/knives/search",
+      },
+      {
+        source: "/api/categories",
+        destination:
+          "https://blade-commerce.onrender.com/api/categories/getAllCategories",
       },
     ];
   },

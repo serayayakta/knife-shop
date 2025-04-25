@@ -1,3 +1,5 @@
+// src/components/layout/MainLayout.tsx
+import Navbar from "@/components/layout/Navbar";
 import CartDrawer from "@/components/cart/CartDrawer";
 
 export default function MainLayout({
@@ -15,6 +17,7 @@ export default function MainLayout({
           </h1>
           <CartDrawer />
         </div>
+        <Navbar /> {/* ⬅️ Add it here below brand/cart */}
       </header>
 
       {/* 📄 Page Content */}
