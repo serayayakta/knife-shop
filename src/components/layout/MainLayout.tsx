@@ -10,14 +10,18 @@ export default function MainLayout({
   return (
     <div className="min-h-screen flex flex-col bg-white text-gray-900">
       {/* 🧭 Header */}
-      <header className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200 shadow-sm px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <h1 className="text-xl font-bold text-orange-700 tracking-wide">
-            Kesik Bıçakçılık
-          </h1>
-          <CartDrawer />
+      <header className="sticky top-0 z-10 bg-gray-50 border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <h1 className="text-xl font-bold text-orange-700 tracking-wide">
+              Kesik Bıçakçılık
+            </h1>
+            <CartDrawer />
+          </div>
+
+          {/* ➡️ Navbar inside same block */}
+          <Navbar />
         </div>
-        <Navbar /> {/* ⬅️ Add it here below brand/cart */}
       </header>
 
       {/* 📄 Page Content */}

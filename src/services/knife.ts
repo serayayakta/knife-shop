@@ -83,7 +83,7 @@ export const searchKnives = async (params: SearchParams): Promise<Knife[]> => {
     knifeType,
     bladeMaterial,
     sortDirection,
-    page = 0,
+    page = 1,
     size = 12,
   } = params;
 
