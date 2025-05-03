@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
+import { useState } from "react";
 
 type ProductCardProps = {
   id: string;
@@ -16,8 +17,10 @@ export default function ProductCard({
   name,
   originalPrice,
   discountedPrice,
+  imageUrl,
 }: ProductCardProps) {
   const { addItem } = useCart();
+  const [fallback, setFallback] = useState(false);
 
   const handleAddToCart = () => {
     addItem({
@@ -29,16 +32,19 @@ export default function ProductCard({
     });
   };
 
+  const displayImage = !fallback && imageUrl ? imageUrl : "/images/knife.jpg";
+
   return (
     <div className="w-full max-w-[240px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
       {/* 📸 Product Image */}
       <div className="relative aspect-[3/2] w-full">
         <Image
-          src={"/images/knife.jpg"}
+          src={displayImage}
           alt={name}
           fill
           className="object-cover"
           sizes="100vw"
+          onError={() => setFallback(true)}
           unoptimized
         />
       </div>
