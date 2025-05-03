@@ -1,12 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSearchKnives } from "@/hooks/useSearchKnives";
 import { useCategories } from "@/hooks/useCategories";
 import MainLayout from "@/components/layout/MainLayout";
 import ProductList from "@/components/shop/ProductList";
 
-export default function SearchPage() {
+function SearchContent() {
   const params = useSearchParams();
   const searchTerm = params.get("searchTerm") || undefined;
   const categoryId = params.get("categoryId") || undefined;
@@ -15,10 +16,12 @@ export default function SearchPage() {
     data: knives,
     isLoading,
     isError,
-  } = useSearchKnives({ searchTerm, categoryId });
+  } = useSearchKnives({
+    searchTerm,
+    categoryId,
+  });
 
   const { data: categories } = useCategories();
-
   const matchedCategory = categories?.find(
     (cat) => cat.categoryId.toString() === categoryId
   );
@@ -53,5 +56,13 @@ export default function SearchPage() {
         <p className="text-gray-500">No products found.</p>
       )}
     </MainLayout>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="p-4 text-sm">Loading search...</div>}>
+      <SearchContent />
+    </Suspense>
   );
 }

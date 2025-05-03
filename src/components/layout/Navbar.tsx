@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCategories } from "@/hooks/useCategories";
 
-export default function Navbar() {
+function NavbarContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: categories } = useCategories();
@@ -15,7 +15,6 @@ export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState(currentSearch);
   const [expanded, setExpanded] = useState(false);
 
-  // Keep input synced with URL
   useEffect(() => {
     setSearchTerm(currentSearch);
   }, [currentSearch]);
@@ -110,5 +109,14 @@ export default function Navbar() {
         </button>
       </div>
     </div>
+  );
+}
+
+// ✅ Suspense wrapper directly around the component — no extra indirection
+export default function Navbar() {
+  return (
+    <Suspense fallback={null}>
+      <NavbarContent />
+    </Suspense>
   );
 }
