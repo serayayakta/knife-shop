@@ -12,7 +12,11 @@ export default function AdminDashboard() {
             Add Product
           </Link>
         </li>
-        {/* Add more features as you build them */}
+        <li>
+          <Link href="/admin/add-category" className="text-blue-600 underline">
+            Add Category
+          </Link>
+        </li>
       </ul>
     </div>
   );
