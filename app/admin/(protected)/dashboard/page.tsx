@@ -17,6 +17,11 @@ export default function AdminDashboard() {
             Add Category
           </Link>
         </li>
+        <li>
+          <Link href="/admin/orders" className="text-blue-600 underline">
+            Orders
+          </Link>
+        </li>
       </ul>
     </div>
   );
