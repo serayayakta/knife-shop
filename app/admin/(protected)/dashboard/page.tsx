@@ -1,28 +1,20 @@
-"use client";
+import ProductSection from "@/components/admin/ProductSection";
+import CategorySection from "@/components/admin/CategorySection";
+import OrderSection from "@/components/admin/OrderSection";
 
-import Link from "next/link";
-
-export default function AdminDashboard() {
+export default function AdminDashboardPage() {
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-      <ul className="space-y-2">
-        <li>
-          <Link href="/admin/add-product" className="text-blue-600 underline">
-            Add Product
-          </Link>
-        </li>
-        <li>
-          <Link href="/admin/add-category" className="text-blue-600 underline">
-            Add Category
-          </Link>
-        </li>
-        <li>
-          <Link href="/admin/orders" className="text-blue-600 underline">
-            Orders
-          </Link>
-        </li>
-      </ul>
+    <div className="p-6 space-y-8 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
+
+      {/* 🗃 Product Section */}
+      <ProductSection />
+
+      {/* 🗂 Category Section */}
+      <CategorySection />
+
+      {/* 📦 Orders Section */}
+      <OrderSection />
     </div>
   );
 }
