@@ -6,14 +6,24 @@ export interface KnifeInOrder {
   imageUrl?: string;
 }
 
+export interface OrderStatus {
+  orderStatusText: string;
+  orderStatusCode: number;
+}
+
 export interface Order {
   id: string;
   orderDate: string | null;
-  orderStatus: string | null;
+  orderStatus: OrderStatus | null;
   shippingAddress: string | null;
   billingAddress: string | null;
   totalAmount: number | null;
   knife: KnifeInOrder[] | null;
+  history?: string;
+  userName?: string;
+  userSurname?: string;
+  email?: string;
+  phoneNumber?: string;
 }
 
 export async function getAllOrders(): Promise<Order[]> {
