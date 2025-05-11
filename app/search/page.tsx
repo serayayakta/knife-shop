@@ -22,14 +22,17 @@ function SearchContent() {
   });
 
   const { data: categories } = useCategories();
-  const matchedCategory = categories?.find(
-    (cat) => cat.categoryId.toString() === categoryId
-  );
+  const matchedCategory = categoryId
+    ? categories?.find((cat) => String(cat.categoryId) === categoryId)
+    : null;
 
   return (
     <MainLayout>
       {/* 🔍 Filter Info */}
       <div className="mb-4 space-y-1">
+        {!searchTerm && !categoryId && (
+          <p className="text-sm text-gray-700">Showing all knives</p>
+        )}
         {searchTerm && (
           <p className="text-sm text-gray-700">
             Search for: <span className="font-semibold">{searchTerm}</span>
@@ -53,7 +56,13 @@ function SearchContent() {
       {knives && knives.length > 0 ? (
         <ProductList products={knives} />
       ) : (
-        <p className="text-gray-500">No products found.</p>
+        !isLoading && (
+          <p className="text-gray-500">
+            {searchTerm || categoryId
+              ? "No products found for your filters."
+              : "No products available."}
+          </p>
+        )
       )}
     </MainLayout>
   );
