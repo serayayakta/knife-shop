@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useSearchKnives } from "@/hooks/useSearchKnives";
 import { useCategories } from "@/hooks/useCategories";
@@ -11,6 +11,7 @@ function SearchContent() {
   const params = useSearchParams();
   const searchTerm = params.get("searchTerm") || undefined;
   const categoryId = params.get("categoryId") || undefined;
+  const [sort, setSort] = useState<"asc" | "desc" | undefined>();
 
   const {
     data: knives,
@@ -19,6 +20,7 @@ function SearchContent() {
   } = useSearchKnives({
     searchTerm,
     categoryId,
+    sortDirection: sort,
   });
 
   const { data: categories } = useCategories();
@@ -46,6 +48,25 @@ function SearchContent() {
             </span>
           </p>
         )}
+        {/* 🧭 Sort Dropdown */}
+        <div className="mb-4">
+          <label className="text-sm text-gray-700 mr-2">Sort by price:</label>
+          <select
+            onChange={(e) =>
+              setSort(
+                e.target.value === ""
+                  ? undefined
+                  : (e.target.value as "asc" | "desc")
+              )
+            }
+            className="text-sm border rounded px-2 py-1"
+            defaultValue=""
+          >
+            <option value="">Default</option>
+            <option value="asc">Lowest First</option>
+            <option value="desc">Highest First</option>
+          </select>
+        </div>
       </div>
 
       {/* 🔄 Loading & Errors */}

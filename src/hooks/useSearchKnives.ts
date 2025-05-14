@@ -4,6 +4,7 @@ import { fetchKnives, searchKnives, Knife } from "@/services/knife";
 export function useSearchKnives(params: {
   searchTerm?: string;
   categoryId?: string;
+  sortDirection?: "asc" | "desc";
 }) {
   const shouldSearch = params.searchTerm?.trim() || params.categoryId?.trim();
 
