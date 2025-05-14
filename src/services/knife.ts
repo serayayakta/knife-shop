@@ -1,4 +1,4 @@
-// 👇 Types returned by backend
+// 👇 Types returned by backend (updated: flat structure)
 type ApiKnife = {
   id: string;
   name: string;
@@ -9,13 +9,11 @@ type ApiKnife = {
   stockQuantity: number;
   tags: string[];
   imageUrl: string;
-  knifeDetails: {
-    knifeType: string;
-    bladeLength: number;
-    color: string;
-    bladeMaterial: string;
-    handleMaterial: string;
-  };
+  knifeType: string | null;
+  bladeLength: number | null;
+  color: string | null;
+  bladeMaterial: string | null;
+  handleMaterial: string | null;
 };
 
 // 👇 Frontend usable type
@@ -50,7 +48,13 @@ function mapKnife(knife: ApiKnife): Knife {
     stockQuantity: knife.stockQuantity,
     tags: knife.tags,
     imageUrl: knife.imageUrl,
-    knifeDetails: knife.knifeDetails,
+    knifeDetails: {
+      knifeType: knife.knifeType ?? "N/A",
+      bladeLength: knife.bladeLength ?? 0,
+      color: knife.color ?? "N/A",
+      bladeMaterial: knife.bladeMaterial ?? "N/A",
+      handleMaterial: knife.handleMaterial ?? "N/A",
+    },
   };
 }
 
@@ -105,7 +109,7 @@ export const searchKnives = async (params: SearchParams): Promise<Knife[]> => {
   if (!res.ok) throw new Error("Failed to fetch knives with filters");
 
   const data: ApiKnife[] = await res.json();
-  return data.map(mapKnife); // ✅ ADD THIS LINE TO MAP FIELDS
+  return data.map(mapKnife);
 };
 
 export type Category = {
@@ -119,4 +123,12 @@ export async function fetchCategories(): Promise<Category[]> {
   if (!res.ok) throw new Error("Failed to fetch categories");
 
   return res.json();
+}
+
+export async function getKnifeById(id: string): Promise<Knife> {
+  const res = await fetch(`/api/knives/${id}`);
+  if (!res.ok) throw new Error("Failed to fetch knife details");
+
+  const data: ApiKnife = await res.json();
+  return mapKnife(data);
 }

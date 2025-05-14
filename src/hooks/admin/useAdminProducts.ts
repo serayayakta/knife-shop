@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { addProduct, AddProductPayload } from "@/services/admin/products";
+import {
+  addProduct,
+  AddProductPayload,
+  updateProduct,
+  UpdateProductPayload,
+  deleteProduct,
+} from "@/services/admin/products";
 import { fetchKnives, Knife } from "@/services/knife";
 
 export function useAdminProducts() {
@@ -22,6 +28,14 @@ export function useAdminProducts() {
     return await addProduct(payload);
   };
 
+  const handleUpdateProduct = async (payload: UpdateProductPayload) => {
+    return await updateProduct(payload);
+  };
+
+  const handleDeleteProduct = async (id: string) => {
+    return await deleteProduct(id);
+  };
+
   useEffect(() => {
     loadProducts();
   }, []);
@@ -31,6 +45,8 @@ export function useAdminProducts() {
     loading,
     error,
     addProduct: handleAddProduct,
+    updateProduct: handleUpdateProduct,
+    deleteProduct: handleDeleteProduct,
     reload: loadProducts,
   };
 }

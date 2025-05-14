@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         destination: "https://blade-commerce.onrender.com/api/knives/search",
       },
       {
+        source: "/api/knives/:id",
+        destination:
+          "https://blade-commerce.onrender.com/api/knives/getKnifeById?id=:id",
+      },
+      {
         source: "/api/categories",
         destination:
           "https://blade-commerce.onrender.com/api/categories/getAllCategories",

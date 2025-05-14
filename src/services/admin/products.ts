@@ -52,3 +52,64 @@ export async function addProduct(
     return { success: false, message: "Network error while adding product" };
   }
 }
+
+export interface UpdateProductPayload {
+  id: string;
+  name: string;
+  categoryId: number;
+  description: string;
+  price: number;
+  discountPrice: number;
+  stockQuantity: number;
+  tags: string[];
+  imageUrl?: string; // if image is not changed, reuse the existing URL
+  knifeType: string;
+  bladeLength: number;
+  color: string;
+  bladeMaterial: string;
+  handleMaterial: string;
+}
+
+export async function updateProduct(
+  payload: UpdateProductPayload
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(
+      "https://blade-commerce.onrender.com/api/knives/updateKnife",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (!res.ok) {
+      const data = await res.json();
+      return { success: false, message: data.message || "Update failed" };
+    }
+
+    return { success: true };
+  } catch {
+    return { success: false, message: "Network error while updating product" };
+  }
+}
+
+export async function deleteProduct(
+  id: string
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    const res = await fetch(
+      `https://blade-commerce.onrender.com/api/knives/deleteKnife?id=${id}`,
+      { method: "DELETE" }
+    );
+
+    if (!res.ok) {
+      const data = await res.json();
+      return { success: false, message: data.message || "Delete failed" };
+    }
+
+    return { success: true };
+  } catch {
+    return { success: false, message: "Network error while deleting product" };
+  }
+}

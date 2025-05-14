@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCart } from "@/context/CartProvider";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type ProductCardProps = {
@@ -21,6 +22,7 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { addItem } = useCart();
   const [fallback, setFallback] = useState(false);
+  const router = useRouter();
 
   const handleAddToCart = () => {
     addItem({
@@ -32,11 +34,17 @@ export default function ProductCard({
     });
   };
 
+  const handleClick = () => {
+    router.push(`/product/${id}`);
+  };
+
   const displayImage = !fallback && imageUrl ? imageUrl : "/images/knife.jpg";
 
   return (
-    <div className="w-full max-w-[240px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col">
-      {/* 📸 Product Image */}
+    <div
+      onClick={handleClick}
+      className="cursor-pointer w-full max-w-[240px] bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col"
+    >
       <div className="relative aspect-[3/2] w-full">
         <Image
           src={displayImage}
@@ -49,13 +57,10 @@ export default function ProductCard({
         />
       </div>
 
-      {/* 📦 Product Info */}
       <div className="p-4 flex flex-col gap-2 flex-1">
         <h3 className="text-base font-medium text-gray-900 leading-snug line-clamp-2">
           {name}
         </h3>
-
-        {/* 💲 Price Section */}
         <div className="text-sm">
           {discountedPrice ? (
             <>
@@ -72,10 +77,11 @@ export default function ProductCard({
             </span>
           )}
         </div>
-
-        {/* 🛒 Add to Cart Button */}
         <button
-          onClick={handleAddToCart}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleAddToCart();
+          }}
           className="mt-auto bg-orange-700 text-white text-sm py-2 px-4 rounded hover:bg-orange-800 transition"
         >
           Add to Cart
