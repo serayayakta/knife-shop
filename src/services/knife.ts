@@ -93,10 +93,12 @@ export const searchKnives = async (params: SearchParams): Promise<Knife[]> => {
 
   const query = new URLSearchParams();
 
-  if (searchTerm) query.append("searchTerm", searchTerm);
-  if (categoryId !== undefined && categoryId !== null && categoryId !== "") {
-    query.append("categoryId", categoryId);
+  const hasRealSearch = searchTerm && searchTerm.trim().length > 0;
+  if (hasRealSearch) {
+    query.append("searchTerm", searchTerm);
   }
+
+  if (categoryId) query.append("categoryId", categoryId);
   if (minPrice) query.append("minPrice", minPrice.toString());
   if (maxPrice) query.append("maxPrice", maxPrice.toString());
   if (knifeType) query.append("knifeType", knifeType);
