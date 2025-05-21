@@ -11,13 +11,43 @@ export default function AdminViewProductsPage() {
     useAdminProducts();
 
   const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("");
   const [confirmId, setConfirmId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
-    return products.filter((p) =>
+    const filteredItems = products.filter((p) =>
       p.name.toLowerCase().includes(search.toLowerCase())
     );
-  }, [search, products]);
+
+    switch (sort) {
+      case "name-asc":
+        return [...filteredItems].sort((a, b) => a.name.localeCompare(b.name));
+      case "name-desc":
+        return [...filteredItems].sort((a, b) => b.name.localeCompare(a.name));
+      case "price-asc":
+        return [...filteredItems].sort(
+          (a, b) =>
+            (a.discountedPrice ?? a.originalPrice) -
+            (b.discountedPrice ?? b.originalPrice)
+        );
+      case "price-desc":
+        return [...filteredItems].sort(
+          (a, b) =>
+            (b.discountedPrice ?? b.originalPrice) -
+            (a.discountedPrice ?? a.originalPrice)
+        );
+      case "stock-asc":
+        return [...filteredItems].sort(
+          (a, b) => a.stockQuantity - b.stockQuantity
+        );
+      case "stock-desc":
+        return [...filteredItems].sort(
+          (a, b) => b.stockQuantity - a.stockQuantity
+        );
+      default:
+        return filteredItems;
+    }
+  }, [search, sort, products]);
 
   const handleDelete = async () => {
     if (!confirmId) return;
@@ -30,14 +60,28 @@ export default function AdminViewProductsPage() {
     <div className="p-6 text-white max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold mb-6">🧾 All Products</h1>
 
-      {/* 🔍 Search Bar */}
-      <div className="mb-4">
+      {/* 🔍 Search + Sort */}
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search products..."
-          className="w-full px-4 py-2 rounded border border-gray-600 bg-gray-800 text-white placeholder-gray-400"
+          className="w-full sm:w-1/2 px-4 py-2 rounded border border-gray-600 bg-gray-800 text-white placeholder-gray-400"
         />
+
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value)}
+          className="w-full sm:w-1/3 px-3 py-2 bg-gray-800 border border-gray-600 text-white text-sm rounded"
+        >
+          <option value="">Sort by</option>
+          <option value="name-asc">Name A–Z</option>
+          <option value="name-desc">Name Z–A</option>
+          <option value="price-asc">Price Low–High</option>
+          <option value="price-desc">Price High–Low</option>
+          <option value="stock-asc">Stock Low–High</option>
+          <option value="stock-desc">Stock High–Low</option>
+        </select>
       </div>
 
       {/* ⚠️ State Handling */}
